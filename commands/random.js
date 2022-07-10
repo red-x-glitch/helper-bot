@@ -26,6 +26,7 @@ const getRandomItem = (pocketJson) => {
 			}
 		}
 	})
+	console.log(dropdownOptions)
 	const row = new MessageActionRow()
 		.addComponents(
 			new MessageSelectMenu()
