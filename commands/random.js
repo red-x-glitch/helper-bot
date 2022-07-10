@@ -17,29 +17,15 @@ const getRandomItem = (pocketJson) => {
 		return hostName;
 	});
 	const uniqueTags = [...new Set(domains)];
-	let indexCounter = 0;
-	const dropdownOptions = []
-	for(; indexCounter < uniqueTags.length; indexCounter++){
-		if(indexCounter < 25) {
-			const options = {
-				label: uniqueTags[indexCounter].substring(0,100),
-				description: `Get a Random Item from ${uniqueTags[indexCounter]}`.substring(0,100),
-				value: uniqueTags[indexCounter].substring(0,100),
+	const dropdownOptions = uniqueTags.map((tag, i) => {
+		if(i < 25) {
+			return {
+				label: tag.substring(0,100),
+				description: `Get a Random Item from ${tag}`.substring(0,100),
+				value: tag.substring(0,100),
 			}
-			dropdownOptions.push(options)
 		}
-	}
-	const dropdownOptions2 = []
-	for(; indexCounter < uniqueTags.length; indexCounter++){
-		if(indexCounter < 25) {
-			const options = {
-				label: uniqueTags[indexCounter].substring(0,100),
-				description: `Get a Random Item from ${uniqueTags[indexCounter]}`.substring(0,100),
-				value: uniqueTags[indexCounter].substring(0,100),
-			}
-			dropdownOptions2.push(options)
-		}
-	}
+	})
 	const row = new MessageActionRow()
 		.addComponents(
 			new MessageSelectMenu()
