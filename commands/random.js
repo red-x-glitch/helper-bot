@@ -25,8 +25,7 @@ const getRandomItem = (pocketJson) => {
 				value: tag.substring(0,100),
 			}
 		}
-	})
-	console.log(dropdownOptions)
+	}).filter(option => option !== undefined)
 	const row = new MessageActionRow()
 		.addComponents(
 			new MessageSelectMenu()
