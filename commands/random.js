@@ -67,9 +67,11 @@ module.exports = {
 		}
 		else {
 			console.log('making api call');
+			await interaction.deferReply({ ephemeral: true });
 			const res = await axios.post('https://getpocket.com/v3/get', {
 				'consumer_key': consumer_key,
 				'access_token': access_token,
+				'detailType': 'complete'
 			});
 			const pocketDataStringified = JSON.stringify(res.data);
 			fs.writeFile('./pocketData.json', pocketDataStringified, err => {
@@ -87,7 +89,7 @@ module.exports = {
 							const pocketJson = JSON.parse(jsonString);
 							callTime = pocketJson.since;
 							const row = getRandomItem(pocketJson);
-							await interaction.reply({ content: 'Please Select One of the Following', components: [row], ephemeral:true });
+							await interaction.editReply({ content: 'Please Select One of the Following', components: [row], ephemeral:true });
 						}
 						catch (err) {
 							console.log('Error parsing JSON string:', err);
