@@ -36,11 +36,8 @@ module.exports = {
 		}
 
 		if (interaction.isSelectMenu()) {
-			if(interaction.values[0] !== 'view more'){
-				readFromFile(returnRandomItem)
-			} else {
-				readFromFile(viewMore)
-			}
+			if (interaction.values[0] !== 'view more') readFromFile(returnRandomItem)
+			else readFromFile(viewMore)
 		}
 	},
 };
