@@ -3,7 +3,6 @@ const { MessageActionRow, MessageSelectMenu } = require('discord.js');
 const { consumer_key, access_token } = require('./../config.json');
 const axios = require('axios').default;
 const fs = require('fs');
-let callTime = false;
 
 const getRandomItem = (pocketJson) => {
 	const pocketItems = pocketJson.list;
