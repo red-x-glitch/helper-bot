@@ -7,16 +7,10 @@ let callTime = false;
 
 const getRandomItem = (pocketJson) => {
 	const pocketItems = pocketJson.list;
-	const urls = Object.values(pocketItems).map((item) => {
-		return item?.given_url;
+	const tags = Object.values(pocketItems).map((item) => {
+		return Object.keys(item?.tags)[0];
 	});
-	const domains = urls.map(url => {
-		const regexHost = /(.*?)\./g;
-		const urlObject = new URL(url);
-		const hostName = urlObject.hostname;
-		return hostName;
-	});
-	const uniqueTags = [...new Set(domains)];
+	const uniqueTags = [...new Set(tags)];
 	const dropdownOptions = uniqueTags.map((tag, i) => {
 		if(i < 25) {
 			return {
@@ -44,12 +38,8 @@ module.exports = {
 		const timestamp = Date.parse(dateToday).toString();
 		const currentTime = parseInt(timestamp.slice(0, -3));
 		const timeOfCache = (typeof callTime) === 'number' ? parseInt(callTime) : false;
-		console.log('this is the time cache ' + timeOfCache);
-		console.log('this is the current time ' + currentTime);
 		const timeDifference = (typeof callTime) === 'number' ? Math.abs(timeOfCache - currentTime) : false;
-		console.log('this is the time difference ' + timeDifference);
-		if (timeDifference && timeDifference < 3600) {
-			console.log('reading from cache');
+		if (timeDifference && timeDifference < 3600) { // read from cache
 			fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
 				if (err) {
 					console.log('Error reading file from disk:', err);
@@ -66,7 +56,6 @@ module.exports = {
 			});
 		}
 		else {
-			console.log('making api call');
 			await interaction.deferReply({ ephemeral: true });
 			const res = await axios.post('https://getpocket.com/v3/get', {
 				'consumer_key': consumer_key,
@@ -79,7 +68,6 @@ module.exports = {
 					console.log('Error writing file', err);
 				}
 				else {
-					console.log('Successfully wrote file');
 					fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
 						if (err) {
 							console.log('Error reading file from disk:', err);

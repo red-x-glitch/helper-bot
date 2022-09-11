@@ -21,7 +21,6 @@ module.exports = {
 				await interaction.editReply('There was an error')
 			}
 			else {
-				console.log('Successfully wrote file');
 				await interaction.editReply('Cache Refreshed');
 			}
 		});
