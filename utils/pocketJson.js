@@ -6,23 +6,23 @@ const getRandomItem = (pocketJson, startIndex=0, endIndex=24) => {
 		return Object.keys(item?.tags)[0];
 	});
 	const uniqueTags = [...new Set(tags)];
-    const dropdownOptions = []
-    let updatedEndIndex = endIndex > uniqueTags.length ? uniqueTags.length : endIndex
-    for(let i=startIndex; i<updatedEndIndex; i++){
-        dropdownOptions.push({
-            label: uniqueTags[i].substring(0,100),
-            description: `Get a Random Item from ${uniqueTags[i]}`.substring(0,100),
-            value: uniqueTags[i].substring(0,100),
-        })
-    }
-    if(updatedEndIndex !== uniqueTags.length) {
-        dropdownOptions.push({
-            label: 'view more',
+    const dropdownOptions = uniqueTags.map(tag => {
+        return {
+            label: tag.substring(0,100),
+            description: `Get a Random Item from ${tag}`.substring(0,100),
+            value: tag.substring(0,100),
+        }
+    }).filter(option => option !== undefined)
+    const dropdownOptionsFiltered = dropdownOptions.slice(startIndex, endIndex)
+    if (endIndex < dropdownOptions.length) {
+        const newStartIndex = startIndex + 25
+        const newEndIndex = endIndex + 25
+        dropdownOptionsFiltered.push({
+            label: `view more: ${newStartIndex} - ${newEndIndex}`,
             description: 'view more tags',
-            value: 'view more'
+            value: `view more: ${newStartIndex} - ${newEndIndex}`
         })
     }
-	const dropdownOptionsFiltered = dropdownOptions.filter(option => option !== undefined)
 	const row = new MessageActionRow()
 		.addComponents(
 			new MessageSelectMenu()

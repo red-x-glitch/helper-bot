@@ -18,7 +18,8 @@ module.exports = {
 
 		const viewMore = async (pocketJsonString) => {
 			const pocketJson = JSON.parse(pocketJsonString);
-			const row = getRandomItem(pocketJson, 25, 49);
+			const indexes = interaction.values[0].split(':')[1].split('-').map(index => parseInt(index))
+			const row = getRandomItem(pocketJson, indexes[0], indexes[1]);
 			await interaction.reply({ content: 'Please Select One of the Following', components: [row], ephemeral:true });
 		}
 
@@ -35,8 +36,8 @@ module.exports = {
 		}
 
 		if (interaction.isSelectMenu()) {
-			if (interaction.values[0] !== 'view more') readFromFile(returnRandomItem)
-			else readFromFile(viewMore)
+			if (interaction.values[0].includes('view more')) readFromFile(viewMore) 
+			else readFromFile(returnRandomItem)
 		}
 	},
 };
