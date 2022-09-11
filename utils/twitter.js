@@ -1,10 +1,13 @@
 const { TwitterApi } = require('twitter-api-v2')
 const { twitterApiKey } = require('./../config.json')
-const { pipe, andThen } = require('ramda')
+const { pipe, andThen, otherwise } = require('ramda')
 
 const tweetUrl = url => new URL(url)
 
-const getTweetId = tweetUrl => tweetUrl.pathname.split("/").slice(-1)[0]
+const getTweetId = tweetUrl => {
+  const urlPaths = tweetUrl.pathname.split("/")
+  return urlPaths.includes('status') && urlPaths.slice(-1)[0]
+}
 
 const twitterClient = new TwitterApi(twitterApiKey);
 
@@ -17,9 +20,9 @@ const pullImageFromTweetObj = tweetObject => tweetObject.includes?.media.map(dat
 
 const pullTextFromTweetObj = tweetObject => tweetObject?.data[0]?.text
 
-const getTextFromTweet = pipe(tweetUrl, getTweetObject, andThen(pullTextFromTweetObj))
+const getTextFromTweet = pipe(tweetUrl, getTweetObject, andThen(pullTextFromTweetObj), otherwise(() => undefined))
 
-const getImagesFromTweet = pipe(tweetUrl, getTweetObject, andThen(pullImageFromTweetObj))
+const getImagesFromTweet = pipe(tweetUrl, getTweetObject, andThen(pullImageFromTweetObj), otherwise(() => undefined))
 
 exports.getImagesFromTweet = getImagesFromTweet
 exports.getTextFromTweet = getTextFromTweet
