@@ -11,7 +11,7 @@ module.exports = {
 			const pocketJson = JSON.parse(pocketJsonString);
 			const pocketItems = pocketJson.list;
 			const filteredItemList = Object.values(pocketItems).filter((item) => {
-				return item?.given_url.includes(tagValue);
+				return Object.keys(item?.tags)[0] == tagValue;
 			});
 			const randomItem = filteredItemList[Math.floor(Math.random() * filteredItemList.length)]?.given_url;
 			await interaction.reply({ content: randomItem });
