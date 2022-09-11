@@ -34,57 +34,19 @@ module.exports = {
 		.setName('random')
 		.setDescription('Picks a Random Item and Displays it!'),
 	async execute(interaction) {
-		const dateToday = new Date();
-		const timestamp = Date.parse(dateToday).toString();
-		const currentTime = parseInt(timestamp.slice(0, -3));
-		const timeOfCache = (typeof callTime) === 'number' ? parseInt(callTime) : false;
-		const timeDifference = (typeof callTime) === 'number' ? Math.abs(timeOfCache - currentTime) : false;
-		if (timeDifference && timeDifference < 3600) { // read from cache
-			fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
-				if (err) {
-					console.log('Error reading file from disk:', err);
-					return;
-				}
-				try {
-					const pocketJson = JSON.parse(jsonString);
-					const row = getRandomItem(pocketJson);
-					await interaction.reply({ content: 'Please Select One of the Following', components: [row], ephemeral:true });
-				}
-				catch (err) {
-					console.log('Error parsing JSON string:', err);
-				}
-			});
-		}
-		else {
-			await interaction.deferReply({ ephemeral: true });
-			const res = await axios.post('https://getpocket.com/v3/get', {
-				'consumer_key': consumer_key,
-				'access_token': access_token,
-				'detailType': 'complete'
-			});
-			const pocketDataStringified = JSON.stringify(res.data);
-			fs.writeFile('./pocketData.json', pocketDataStringified, err => {
-				if (err) {
-					console.log('Error writing file', err);
-				}
-				else {
-					fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
-						if (err) {
-							console.log('Error reading file from disk:', err);
-							return;
-						}
-						try {
-							const pocketJson = JSON.parse(jsonString);
-							callTime = pocketJson.since;
-							const row = getRandomItem(pocketJson);
-							await interaction.editReply({ content: 'Please Select One of the Following', components: [row], ephemeral:true });
-						}
-						catch (err) {
-							console.log('Error parsing JSON string:', err);
-						}
-					});
-				}
-			});
-		}
-	},
+		fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
+			if (err) {
+				console.log('Error reading file from disk:', err);
+				return;
+			}
+			try {
+				const pocketJson = JSON.parse(jsonString);
+				const row = getRandomItem(pocketJson);
+				await interaction.reply({ content: 'Please Select One of the Following', components: [row], ephemeral:true });
+			}
+			catch (err) {
+				console.log('Error parsing JSON string:', err);
+			}
+		});
+	}
 };
