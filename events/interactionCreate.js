@@ -18,25 +18,30 @@ module.exports = {
 		}
 
 		if (interaction.isSelectMenu()) {
-			const tagValue = interaction.values[0];
-			fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
-				if (err) {
-					console.log('Error reading file from disk:', err);
-					return;
-				}
-				try {
-					const pocketJson = JSON.parse(jsonString);
-					const pocketItems = pocketJson.list;
-					const filteredItemList = Object.values(pocketItems).filter((item) => {
-						return item?.given_url.includes(tagValue);
-					});
-					const randomItem = filteredItemList[Math.floor(Math.random() * filteredItemList.length)]?.given_url;
-					await interaction.reply({ content: randomItem });
-				}
-				catch (err) {
-					console.log('Error parsing JSON string:', err);
-				}
-			});
+			if(interaction.customId !== 'view more'){
+				const tagValue = interaction.values[0];
+				fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
+					if (err) {
+						console.log('Error reading file from disk:', err);
+						return;
+					}
+					try {
+						const pocketJson = JSON.parse(jsonString);
+						const pocketItems = pocketJson.list;
+						const filteredItemList = Object.values(pocketItems).filter((item) => {
+							return item?.given_url.includes(tagValue);
+						});
+						const randomItem = filteredItemList[Math.floor(Math.random() * filteredItemList.length)]?.given_url;
+						await interaction.reply({ content: randomItem });
+					}
+					catch (err) {
+						console.log('Error parsing JSON string:', err);
+					}
+				});
+			} else {
+				
+			}
+			
 		}
 	},
 };
