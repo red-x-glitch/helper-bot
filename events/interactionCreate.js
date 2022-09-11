@@ -1,4 +1,3 @@
-const fs = require('fs');
 const { readFromFile } = require('../utils/files.js');
 const { getRandomItem } = require('./../utils/pocketJson.js')
 
