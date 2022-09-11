@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { getRandomItem } = require('./../utils/pocketJson.js')
 
 module.exports = {
 	name: 'interactionCreate',
@@ -18,7 +19,7 @@ module.exports = {
 		}
 
 		if (interaction.isSelectMenu()) {
-			if(interaction.customId !== 'view more'){
+			if(interaction.values[0] !== 'view more'){
 				const tagValue = interaction.values[0];
 				fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
 					if (err) {
@@ -39,7 +40,20 @@ module.exports = {
 					}
 				});
 			} else {
-				
+				fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
+					if (err) {
+						console.log('Error reading file from disk:', err);
+						return;
+					}
+					try {
+						const pocketJson = JSON.parse(jsonString);
+						const row = getRandomItem(pocketJson, 25, 49);
+						await interaction.reply({ content: 'Please Select One of the Following', components: [row], ephemeral:true });
+					}
+					catch (err) {
+						console.log('Error parsing JSON string:', err);
+					}
+				});
 			}
 			
 		}
