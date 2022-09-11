@@ -1,7 +1,8 @@
 const { getImagesFromTweet, getTextFromTweet } = require('./../utils/twitter.js')
 
 const removeExtraRetweet = (msg) => {
-    const endIndex = msg.indexOf(':neort')
+    let endIndex = msg.indexOf('<:neort')
+    if (endIndex === -1) endIndex = msg.indexOf(':neort')
     return msg.substring(0, endIndex).trim()
 }
 
