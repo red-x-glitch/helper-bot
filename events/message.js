@@ -1,8 +1,8 @@
 const { getImagesFromTweet, getTextFromTweet } = require('./../utils/twitter.js')
 
 const removeExtraRetweet = (msg) => {
-    const endIndex = msg.content.indexOf(':neort')
-    return msg.content.substring(0, endIndex).trim()
+    const endIndex = msg.indexOf(':neort')
+    return msg.substring(0, endIndex).trim()
 }
 
 const postImagesToThread = async (retweetUrl, msg) => {
@@ -26,8 +26,8 @@ const postImagesToThread = async (retweetUrl, msg) => {
 module.exports = {
 	name: 'messageCreate',
 	async execute(msg) {
-        if(msg.content.includes('neort')) await postImagesToThread(removeExtraRetweet(msg), msg)
-
-        if(msg.content.startsWith("https://twitter.com/") && !msg.content.includes('neort')) await postImagesToThread(msg.content, msg)
+        let retweetUrl = msg.content
+        if(msg.content.includes('neort')) retweetUrl = removeExtraRetweet(msg.content)
+        if(msg.content.startsWith("https://twitter.com/")) postImagesToThread(retweetUrl, msg)
 	},
 };
