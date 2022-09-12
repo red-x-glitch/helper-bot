@@ -9,7 +9,7 @@ const removeExtraRetweet = (msg) => {
 const postImagesToThread = async (tweetImages, retweetUrl, msg) => {
     const tweetText = await getTextFromTweet(retweetUrl)
     const thread = await msg.channel.threads.create({
-        name: tweetText,
+        name: tweetText.substring(0,99),
         autoArchiveDuration: 60,
         reason: 'Images From Tweet',
     });
