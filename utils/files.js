@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const readFromFile = async (callback) => fs.readFile('./pocketData.json', 'utf8', async (err, jsonString) => {
+const readFromFile = async (filePath, callback) => fs.readFile(filePath, 'utf8', async (err, jsonString) => {
     if (err) {
         console.log('Error reading file from disk:', err);
         return;
@@ -13,4 +13,10 @@ const readFromFile = async (callback) => fs.readFile('./pocketData.json', 'utf8'
     }
 });
 
+const writeToFile = async (filePath, data, callback) => fs.writeFile(filePath, data, async err => {
+    if (err) callback(err)
+    else callback()
+});
+
 exports.readFromFile = readFromFile
+exports.writeToFile = writeToFile

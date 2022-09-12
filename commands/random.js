@@ -14,6 +14,6 @@ module.exports = {
 			const row = getRandomItem(pocketJson);
 			await interaction.reply({ content: 'Please Select One of the Following', components: [row], ephemeral:true });
 		}
-		readFromFile(returnTagsMenu)
+		readFromFile('./pocketData.json', returnTagsMenu)
 	}
 };

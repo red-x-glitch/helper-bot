@@ -36,8 +36,8 @@ module.exports = {
 		}
 
 		if (interaction.isSelectMenu()) {
-			if (interaction.values[0].includes('view more')) readFromFile(viewMore) 
-			else readFromFile(returnRandomItem)
+			if (interaction.values[0].includes('view more')) readFromFile('./pocketData.json', viewMore) 
+			else readFromFile('./pocketData.json', returnRandomItem)
 		}
 	},
 };

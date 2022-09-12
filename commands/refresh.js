@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { consumer_key, access_token } = require('./../config.json');
 const axios = require('axios').default;
 const fs = require('fs');
+const { writeToFile } = require('../utils/files');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -14,15 +15,8 @@ module.exports = {
 			'access_token': access_token,
 			'detailType': 'complete',
 		});
+		const returnReply = async (err = undefined) => err ? await interaction.editReply('There was an error') : await interaction.editReply('Cache Refreshed');
 		const pocketDataStringified = JSON.stringify(res.data);
-		fs.writeFile('./pocketData.json', pocketDataStringified, async err => {
-			if (err) {
-				console.log('Error writing file', err);
-				await interaction.editReply('There was an error')
-			}
-			else {
-				await interaction.editReply('Cache Refreshed');
-			}
-		});
+		writeToFile('./pocketData.json', pocketDataStringified, returnReply)
 	},
 };
