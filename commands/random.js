@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { getRandomItem } = require('./../utils/pocketJson.js')
-const fs = require('fs');
 const { readFromFile } = require('../utils/files.js');
 
 
