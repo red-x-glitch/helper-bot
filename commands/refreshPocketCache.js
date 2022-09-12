@@ -6,8 +6,8 @@ const { writeToFile } = require('../utils/files');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('refresh')
-		.setDescription('Refreshes the Cache'),
+		.setName('refresh_pocket_cache')
+		.setDescription('Refreshes Pocket Cache'),
 	async execute(interaction) {
 		await interaction.deferReply({ ephemeral: true });
 		const res = await axios.post('https://getpocket.com/v3/get', {
