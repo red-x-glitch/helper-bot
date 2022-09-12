@@ -21,8 +21,8 @@ const postImagesToThread = async (tweetImages, retweetUrl, msg) => {
     }))
 }
 
-const replaceWithVxTwitter = (twitterLink, msg) => {
-    const vxTwitterLink = twitterLink.replace('twitter', 'vxtwitter')
+const replaceWithFxTwitter = (twitterLink, msg) => {
+    const vxTwitterLink = twitterLink.replace('twitter', 'fxtwitter')
     msg.delete({ timeout: "1000" })
     msg.channel.send(vxTwitterLink);
 }
@@ -35,7 +35,7 @@ module.exports = {
         if(msg.content.startsWith("https://twitter.com/")){
             const tweetImages = await getImagesFromTweet(retweetUrl)
             if (tweetImages?.length > 1) postImagesToThread(tweetImages, retweetUrl, msg)
-            else replaceWithVxTwitter(retweetUrl, msg)
+            else replaceWithFxTwitter(retweetUrl, msg)
         } 
 	},
 };
