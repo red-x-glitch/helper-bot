@@ -36,8 +36,14 @@ module.exports = {
 		}
 
 		if (interaction.isSelectMenu()) {
-			if (interaction.values[0].includes('view more')) readFromFile('./pocketData.json', viewMore) 
-			else readFromFile('./pocketData.json', returnRandomItem)
+			try {
+				if (interaction.values[0].includes('view more')) readFromFile('./pocketData.json', viewMore) 
+				else readFromFile('./pocketData.json', returnRandomItem)
+			}
+			catch (error) {
+				console.error(error);
+				await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+			}
 		}
 	},
 };
