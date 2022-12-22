@@ -1,12 +1,20 @@
-const { replaceWithFxTwitter } = require('../utils/messageHelpers.js')
+const removeExtraRetweet = (msg) => {
+    let endIndex = msg.indexOf('<:neort')
+    if (endIndex === -1) endIndex = msg.indexOf(':neort')
+    return msg.substring(0, endIndex).trim()
+}
+
+const replaceWithFxTwitter = (twitterLink, msg) => {
+    const vxTwitterLink = twitterLink.replace('twitter', 'fxtwitter')
+    msg.delete({ timeout: "1000" })
+    msg.channel.send(vxTwitterLink);
+}
 
 module.exports = {
 	name: 'messageCreate',
 	async execute(msg) {
-        if(msg.content.startsWith("https://twitter.com/")) {
-            const vxTwitterLink = twitterLink.replace('twitter', 'fxtwitter')
-            msg.delete({ timeout: "1000" })
-            msg.channel.send(vxTwitterLink);
-        }
+        let retweetUrl = msg.content
+        if(msg.content.includes('neort')) retweetUrl = removeExtraRetweet(msg.content)
+        if(msg.content.startsWith("https://twitter.com/")) replaceWithFxTwitter(retweetUrl, msg)
 	}
 };
