@@ -18,7 +18,7 @@ module.exports = {
 	async execute(msg) {
         if(msg.channelId == '873250338579308564') {
             const domain = new URL(msg.content).hostname.replace(/www*.\./, '').match(/(.*?)\./)[1]
-            await axios.post('https://getpocket.com/v3/add', {
+            if (domain != 'fxtwitter') await axios.post('https://getpocket.com/v3/add', {
                 'url': msg.content,
                 'consumer_key': consumer_key,
                 'access_token': access_token,
