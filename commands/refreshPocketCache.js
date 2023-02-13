@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { consumer_key, access_token } = require('./../config.json');
+const { consumer_key, access_token } = require('./../config');
 const axios = require('axios').default;
 const { writeToFile } = require('../utils/files');
 

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { authorId } = require('./../config.json');
+const { authorId } = require('./../config');
 const { writeToFile } = require('../utils/files');
 const { getTweetUrlsFromLikes } = require('../utils/twitter');
 

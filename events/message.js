@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-const { consumer_key, access_token } = require('./../config.json');
+const { consumer_key, access_token } = require('./../config');
 
 const removeExtraRetweet = (msg) => {
     let endIndex = msg.indexOf('<:neort')

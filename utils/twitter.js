@@ -1,5 +1,5 @@
 const { TwitterApi } = require('twitter-api-v2')
-const { twitterApiKey } = require('./../config.json')
+const { twitterApiKey } = require('./../config')
 
 const twitterClient = new TwitterApi(twitterApiKey);
 
