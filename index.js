@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 	// Login to Discord with your client's token
 	client.login(token);
 
-	res.send('Ready! Logged in as Helper#0396')
+	return res.send('Ready! Logged in as Helper#0396')
 })
 
 app.listen(port, () => {
