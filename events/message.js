@@ -13,17 +13,29 @@ const replaceWithFxTwitter = (twitterLink, msg) => {
     msg.channel.send(vxTwitterLink);
 }
 
+const checkUrl = (url) => {
+    try {
+       const domain = new URL(url);
+    } catch (_) {
+        return false;
+    }
+    return true
+}
+
 module.exports = {
 	name: 'messageCreate',
 	async execute(msg) {
         if(msg.channelId == '873250338579308564') {
-            const domain = new URL(msg.content).hostname.replace(/www*.\./, '').match(/(.*?)\./)[1]
-            if (domain != 'fxtwitter') await axios.post('https://getpocket.com/v3/add', {
-                'url': msg.content,
-                'consumer_key': consumer_key,
-                'access_token': access_token,
-                'tags': domain,
-            });
+            const isValidUrl = checkUrl(msg.content)
+            if(isValidUrl) {
+                const domain = new URL(msg.content).hostname.replace(/www*.\./, '').match(/(.*?)\./)[1]
+                if (domain != 'fxtwitter') await axios.post('https://getpocket.com/v3/add', {
+                    'url': msg.content,
+                    'consumer_key': consumer_key,
+                    'access_token': access_token,
+                    'tags': domain,
+                });
+            }
         }
         if(msg.content.startsWith("https://twitter.com/")) {
             let retweetUrl = msg.content
