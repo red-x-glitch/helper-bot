@@ -2,3 +2,4 @@ node_modules
 .env
 pocketData.json
 twitterLikes.json
+cache/*

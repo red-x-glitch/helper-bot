@@ -9,5 +9,6 @@ COPY . /app
 
 FROM astefanutti/scratch-node
 
-COPY --from=builder --chown=1000 /app /
+COPY --from=builder --chown=1000 /app /helper-bot
+WORKDIR /helper-bot
 ENTRYPOINT ["node", "index.js"]
