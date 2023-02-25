@@ -1,7 +1,3 @@
-const dotenv = require('dotenv');
-
-dotenv.config();
-
 module.exports ={
     "clientId": process.env.clientId,
     "guildId": process.env.guildId,
