@@ -13,6 +13,6 @@ module.exports = {
             const randomTwitterLike = values[parseInt(Math.random() * values.length)]
             await interaction.reply(randomTwitterLike)
 		}
-		readFromFile('./twitterLikes.json', returnTwitterLikeUrl)
+		readFromFile('./cache/twitterLikes.json', returnTwitterLikeUrl)
 	}
 };

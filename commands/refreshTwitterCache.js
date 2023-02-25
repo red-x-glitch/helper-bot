@@ -12,6 +12,6 @@ module.exports = {
 		const returnReply = async (err = undefined) => err ? await interaction.editReply('There was an error') : await interaction.editReply('Cache Refreshed');
 		const tweetUrlsFromLikes = await getTweetUrlsFromLikes(authorId)
         const tweetUrlsFromLikesJson = JSON.stringify({...tweetUrlsFromLikes})
-		writeToFile('./twitterLikes.json', tweetUrlsFromLikesJson, returnReply)
+		writeToFile('./cache/twitterLikes.json', tweetUrlsFromLikesJson, returnReply)
 	},
 };

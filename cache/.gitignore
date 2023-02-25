@@ -1,0 +1,4 @@
+# Ignore everything in this directory. Used as data cache for returns from api calls
+*
+# Except this file
+!.gitignore
