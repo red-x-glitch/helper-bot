@@ -1,9 +1,11 @@
 FROM node:18 as builder
 
+RUN curl -sfL https://gobinaries.com/tj/node-prune | bash -s -- -b /usr/local/bin
+
 WORKDIR /app
 
 COPY package*.json /app
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev && /usr/local/bin/node-prune
 
 COPY . /app
 
