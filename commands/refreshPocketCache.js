@@ -16,6 +16,6 @@ module.exports = {
 		});
 		const returnReply = async (err = undefined) => err ? await interaction.editReply('There was an error') : await interaction.editReply('Cache Refreshed');
 		const pocketDataStringified = JSON.stringify(res.data);
-		writeToFile('./pocketData.json', pocketDataStringified, returnReply)
+		writeToFile('./cache/pocketData.json', pocketDataStringified, returnReply)
 	},
 };

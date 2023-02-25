@@ -1,26 +1,13 @@
-# FROM node:latest
+FROM node:18 as builder
 
-# # Create the directory!
-# RUN mkdir -p /usr/src/helper-bot
-# WORKDIR /usr/src/helper-bot
-
-# # Copy and Install our bot
-# COPY . /usr/src/helper-bot
-# RUN npm install
-
-# # Start me!
-# CMD ["npm", "start"]
-
-FROM node:18 AS build-env
-
-COPY . /app
 WORKDIR /app
 
+COPY package*.json /app
 RUN npm ci --omit=dev
 
+COPY . /app
 
-FROM gcr.io/distroless/nodejs18-debian11
-COPY --from=build-env /app /app
-WORKDIR /app
+FROM astefanutti/scratch-node
 
-CMD ["index.js"]
+COPY --from=builder --chown=1000 /app /
+ENTRYPOINT ["node", "index.js"]

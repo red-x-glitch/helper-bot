@@ -13,6 +13,6 @@ module.exports = {
 			const row = getRandomItem(pocketJson);
 			await interaction.reply({ content: 'Please Select One of the Following', components: [row], ephemeral:true });
 		}
-		readFromFile('./pocketData.json', returnTagsMenu)
+		readFromFile('./cache/pocketData.json', returnTagsMenu)
 	}
 };

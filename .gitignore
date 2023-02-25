@@ -1,4 +1,3 @@
 node_modules
 .env
-pocketData.json
-twitterLikes.json
+.DS_Store
