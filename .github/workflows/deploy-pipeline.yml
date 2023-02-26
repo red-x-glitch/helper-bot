@@ -6,7 +6,20 @@ on:
       - 'main'
 
 jobs:
-  docker:
+  
+  run-ssh-command:
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: whoami
+  
+  build-docker-image:
     runs-on: ubuntu-latest
     steps:
       -
