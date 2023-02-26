@@ -17,7 +17,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          script: echo "clientId=${{secrets.CLIENTID}}\nguildId=${{secrets.GUILDID}}\ntoken=${{secrets.TOKEN}}\nconsumer_key=${{secrets.CONSUMER_KEY}}\naccess_token=${{secrets.ACCESS_TOKEN}}\ntwitterApiKey=${{secrets.TWITTER_API_KEY}}\nauthorId=${{secrets.AUTHOR_ID}}\n" > .env
+          script: echo -e "clientId=${{secrets.CLIENTID}}\nguildId=${{secrets.GUILDID}}\ntoken=${{secrets.TOKEN}}\nconsumer_key=${{secrets.CONSUMER_KEY}}\naccess_token=${{secrets.ACCESS_TOKEN}}\ntwitterApiKey=${{secrets.TWITTER_API_KEY}}\nauthorId=${{secrets.AUTHOR_ID}}\n" > .env
   
   build-docker-image:
     runs-on: ubuntu-latest
