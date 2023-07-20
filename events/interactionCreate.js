@@ -37,8 +37,8 @@ module.exports = {
 
 		if (interaction.isSelectMenu()) {
 			try {
-				if (interaction.values[0].includes('view more')) readFromFile('./pocketData.json', viewMore) 
-				else readFromFile('./pocketData.json', returnRandomItem)
+				if (interaction.values[0].includes('view more')) readFromFile('./cache/pocketData.json', viewMore) 
+				else readFromFile('./cache/pocketData.json', returnRandomItem)
 			}
 			catch (error) {
 				console.error(error);
