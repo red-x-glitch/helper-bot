@@ -25,6 +25,7 @@ const checkUrl = (url) => {
 module.exports = {
 	name: 'messageCreate',
 	async execute(msg) {
+        // TODO: Make configurable
         if(msg.channelId == '1131639769001115740') {
             const isValidUrl = checkUrl(msg.content)
             if(isValidUrl) {
