@@ -25,7 +25,7 @@ const checkUrl = (url) => {
 module.exports = {
 	name: 'messageCreate',
 	async execute(msg) {
-        if(msg.channelId == '873250338579308564') {
+        if(msg.channelId == '1131639769001115740') {
             const isValidUrl = checkUrl(msg.content)
             if(isValidUrl) {
                 const domain = new URL(msg.content).hostname.replace(/www*.\./, '').match(/(.*?)\./)[1]
